@@ -1,67 +1,162 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Rimba Faiz Haikal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-    h1 { font-size: 36px; }
-    h2 { color: #38bdf8; margin-top: 30px; }
-    .card {
-      background: #020617;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-    a { color: #38bdf8; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catatan Kotoba</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="container">
-  <h1>Rimba Faiz Haikal</h1>
-  <p>Programmer • Japanese Speaker • Investor</p>
 
-  <div class="card">
-    <h2>Profil</h2>
-    <p>
-      Usia 17 tahun (menuju 18).  
-      Programmer dengan kemampuan bahasa Jepang menengah
-      dan sertifikasi JLPT N3.
-    </p>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <a class="wa" href="https://wa.me/6283186927036">Hubungi Pembuat</a>
   </div>
 
-  <div class="card">
-    <h2>Aset</h2>
-    <ul>
-      <li>Bitcoin 80%</li>
-      <li>Saham 10%</li>
-      <li>Emas 2%</li>
-      <li>Bank Jago 8%</li>
-      <li>Total ± Rp500 juta</li>
-    </ul>
+  <div class="header-content">
+    <h1>Catatan Kotoba</h1>
+    <p class="subtitle">Kumpulkan kosakata yang sedang dipelajari</p>
+    <p class="author">oleh <strong>Rimba Faiz Haikal</strong></p>
+    <p class="total">Total: <span id="total">0</span> kata</p>
   </div>
+</header>
 
-  <div class="card">
-    <h2>Kontak</h2>
-    <p>Email: goblokreall@gmail.com</p>
-    <p>
-      LinkedIn:
-      <a href="https://www.linkedin.com/in/rimba-faiz-haikal-bimbim-971064392" target="_blank">
-        Profil LinkedIn
-      </a>
-    </p>
-  </div>
+<!-- HIMBAUAN -->
+<section class="info-box" id="infoBox">
+
+  <h3>Himbauan</h3>
+  <p>
+    Web ini akan kosong saat pertama kali dibuka. Anda perlu menambahkan kosakata secara manual.
+    Gunakan web ini untuk mencatat kata yang sedang dipelajari dan dihafal.
+  </p>
+
+  <p>
+    Tujuan dari web ini adalah sebagai kamus pribadi yang sederhana, praktis, dan fokus pada kebutuhan belajar Anda.
+    Anda dapat menyimpan kosakata, mengelompokkan berdasarkan kumpulan, serta mengulang kembali materi kapan saja.
+  </p>
+
+  <h3>Cara Penggunaan</h3>
+  <ul>
+    <li>Klik tombol (+) untuk menambahkan kosakata</li>
+    <li>Isi kanji, furigana, romaji, dan arti</li>
+    <li>Pilih kategori kumpulan sesuai kebutuhan</li>
+    <li>Gunakan pencarian untuk menemukan kata dengan cepat</li>
+    <li>Gunakan filter untuk melihat berdasarkan kumpulan</li>
+    <li>Tandai kata penting menggunakan fitur favorit</li>
+    <li>Gunakan mode flashcard untuk latihan menghafal</li>
+    <li>Hapus kata yang tidak diperlukan</li>
+  </ul>
+
+</section>
+
+<!-- SEARCH -->
+<section class="search">
+  <input 
+    type="text" 
+    placeholder="Cari kanji, romaji, atau arti..." 
+    onkeyup="searchWord(this.value)">
+</section>
+
+<!-- FILTER -->
+<section class="filter">
+
+  <button onclick="filterCategory('all')">Semua</button>
+
+  <button onclick="filterCategory('kumpulan 1')">Kumpulan 1</button>
+  <button onclick="filterCategory('kumpulan 2')">Kumpulan 2</button>
+  <button onclick="filterCategory('kumpulan 3')">Kumpulan 3</button>
+  <button onclick="filterCategory('kumpulan 4')">Kumpulan 4</button>
+  <button onclick="filterCategory('kumpulan 5')">Kumpulan 5</button>
+  <button onclick="filterCategory('kumpulan 6')">Kumpulan 6</button>
+  <button onclick="filterCategory('kumpulan 7')">Kumpulan 7</button>
+  <button onclick="filterCategory('kumpulan 8')">Kumpulan 8</button>
+  <button onclick="filterCategory('kumpulan 9')">Kumpulan 9</button>
+  <button onclick="filterCategory('kumpulan 10')">Kumpulan 10</button>
+  <button onclick="filterCategory('kumpulan 11')">Kumpulan 11</button>
+  <button onclick="filterCategory('kumpulan 12')">Kumpulan 12</button>
+  <button onclick="filterCategory('kumpulan 13')">Kumpulan 13</button>
+  <button onclick="filterCategory('kumpulan 14')">Kumpulan 14</button>
+  <button onclick="filterCategory('kumpulan 15')">Kumpulan 15</button>
+
+  <button onclick="filterCategory('favorit')">Favorit</button>
+
+  <button class="flash-btn" onclick="startFlashcard()">Flashcard</button>
+
+</section>
+
+<!-- LIST -->
+<main id="list" class="list"></main>
+
+<!-- FLOAT BUTTON -->
+<button class="fab" onclick="openModal()">+</button>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeModal()"></div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+  <button class="close-btn" onclick="closeModal()">✕</button>
+
+  <h2>Tambah Kosakata</h2>
+
+  <input id="kanji" placeholder="Kanji">
+  <input id="furigana" placeholder="Furigana">
+  <input id="romaji" placeholder="Romaji">
+  <input id="arti" placeholder="Arti">
+
+  <select id="kategori">
+
+    <option value="kumpulan 1">Kumpulan 1</option>
+    <option value="kumpulan 2">Kumpulan 2</option>
+    <option value="kumpulan 3">Kumpulan 3</option>
+    <option value="kumpulan 4">Kumpulan 4</option>
+    <option value="kumpulan 5">Kumpulan 5</option>
+    <option value="kumpulan 6">Kumpulan 6</option>
+    <option value="kumpulan 7">Kumpulan 7</option>
+    <option value="kumpulan 8">Kumpulan 8</option>
+    <option value="kumpulan 9">Kumpulan 9</option>
+    <option value="kumpulan 10">Kumpulan 10</option>
+    <option value="kumpulan 11">Kumpulan 11</option>
+    <option value="kumpulan 12">Kumpulan 12</option>
+    <option value="kumpulan 13">Kumpulan 13</option>
+    <option value="kumpulan 14">Kumpulan 14</option>
+    <option value="kumpulan 15">Kumpulan 15</option>
+
+  </select>
+
+  <button class="save" onclick="saveWord()">Simpan</button>
+
 </div>
+
+<!-- FLASHCARD MODE -->
+<section id="flashcardView" class="flashcard-view" style="display:none;">
+
+  <div class="flashcard">
+
+    <div id="flash-kanji" class="flash-kanji">Kanji</div>
+    <div id="flash-romaji" class="flash-romaji">Romaji</div>
+    <div id="flash-arti" class="flash-arti">Arti</div>
+
+  </div>
+
+  <div class="flash-controls">
+    <button onclick="prevFlash()">Sebelumnya</button>
+    <button onclick="nextFlash()">Berikutnya</button>
+    <button onclick="exitFlash()">Keluar</button>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© Copyright 2025</p>
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
